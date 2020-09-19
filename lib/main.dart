@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_provider/injector.dart';
 import 'package:flutter_provider/state.dart';
+import 'package:flutter_provider/usecase.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  injector.setup();
   runApp(MyApp());
 }
 
@@ -29,7 +32,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: ChangeNotifierProvider(
-          create: (context) => CounterState(),
+          create: (context) => injector.getState<CounterState>(),
           child: MyHomePage(title: 'Flutter Demo Home Page')),
     );
   }
@@ -42,6 +45,7 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ;
     return Scaffold(
       appBar: AppBar(
         title: Text(this.title),
@@ -54,14 +58,14 @@ class MyHomePage extends StatelessWidget {
               'You have pushed the button this many times:',
             ),
             Text(
-              context.select((CounterState state) => "${state.count}"),
+              "${context.watch<CounterState>().count}",
               style: Theme.of(context).textTheme.headline4,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => print('aa'),
+        onPressed: () => injector.getUsecase<CountUsecase>().increment(),
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.

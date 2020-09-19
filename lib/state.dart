@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
-class CounterState extends ChangeNotifier {
+class CounterState extends ChangeNotifier with State {
   int count = 0;
 
-  void increment() {
-    count++;
+  setValue(int value) {
+    this.count = value;
+    notifyListeners();
   }
 }
+
+abstract class State {}
