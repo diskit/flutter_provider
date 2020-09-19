@@ -5,8 +5,14 @@ class CounterState extends ChangeNotifier with State {
 
   setValue(int value) {
     this.count = value;
+  }
+
+  @override
+  void notify() {
     notifyListeners();
   }
 }
 
-abstract class State {}
+abstract class State {
+  void notify();
+}

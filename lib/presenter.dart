@@ -8,5 +8,6 @@ class CounterPresenter {
 
   void setCount(Count count) {
     _state.setValue(count.value);
+    _state.notify();
   }
 }
